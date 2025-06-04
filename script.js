@@ -22,21 +22,25 @@ btnCheck.addEventListener('click', () => {
     document.querySelector('body').style.backgroundColor = 'green';
     highScore.textContent = score.textContent;
   } else if (guess > secretNumber) {
-    message.textContent = `📈 Too high!`;
-    score.textContent = actualScore - 1;
+    if (actualScore > 1) {
+      message.textContent = `📈 Too high!`;
+      actualScore--;
+      score.textContent = actualScore;
+    } else {
+      message.textContent = `💥 You lost the game!`;
+    }
   } else if (guess < secretNumber) {
-    message.textContent = `📉 Too low!`;
-    score.textContent = actualScore - 1;
+    if (actualScore > 1) {
+      message.textContent = `📉 Too low!`;
+      actualScore--;
+      score.textContent = actualScore;
+    } else {
+      message.textContent = `💥 You lost the game!`;
+    }
   }
 
   guessInput.value = '';
   console.log(numScore);
-});
-
-btnAgin.addEventListener('click', () => {
-  document.querySelector('body').style.backgroundColor = 'black';
-  number.textContent = '?';
-  score.textContent = 20;
 });
 
 console.log(secretNumber);
