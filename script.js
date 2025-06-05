@@ -12,6 +12,10 @@ let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let actualScore = 20;
 let actualHighScore = 0;
 
+const changeBgColor = function (color) {
+  document.querySelector('body').style.backgroundColor = color;
+};
+
 btnCheck.addEventListener('click', () => {
   const guess = Number(guessInput.value);
   guessInput.focus();
@@ -22,27 +26,22 @@ btnCheck.addEventListener('click', () => {
   } else if (guess === secretNumber) {
     message.textContent = `🎉 congratiolation you win!`;
     answer.textContent = secretNumber;
-    document.querySelector('body').style.backgroundColor = '#60b347';
+    changeBgColor('#60b347');
     answer.style.width = '30rem';
     if (actualScore > actualHighScore) {
       actualHighScore = actualScore;
       highScore.textContent = actualHighScore;
     }
-  } else if (guess > secretNumber) {
+    // When guess is wrong
+  } else if (guess !== secretNumber) {
     if (actualScore > 1) {
-      message.textContent = `📈 Too high!`;
+      message.textContent =
+        guess > secretNumber ? '📈 Too high!' : '📉 Too low!';
       actualScore--;
       score.textContent = actualScore;
     } else {
       message.textContent = `💥 You lost the game!`;
-    }
-  } else if (guess < secretNumber) {
-    if (actualScore > 1) {
-      message.textContent = `📉 Too low!`;
-      actualScore--;
-      score.textContent = actualScore;
-    } else {
-      message.textContent = `💥 You lost the game!`;
+      score.textContent = 0;
     }
   }
 
@@ -53,7 +52,7 @@ btnCheck.addEventListener('click', () => {
 btnAgin.addEventListener('click', () => {
   const initialScore = 20;
   const initialNumber = '?';
-  document.querySelector('body').style.backgroundColor = '#222';
+  changeBgColor('#222');
   answer.style.width = '15rem';
   score.textContent = initialScore;
   message.textContent = 'Start guessing...';
