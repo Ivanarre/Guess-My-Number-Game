@@ -8,7 +8,7 @@ const score = document.querySelector('.score');
 const highScore = document.querySelector('.highscore');
 const btnAgin = document.querySelector('.again');
 
-const secretNumber = Math.trunc(Math.random() * 20) + 1;
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let actualScore = 20;
 
 btnCheck.addEventListener('click', () => {
@@ -16,10 +16,13 @@ btnCheck.addEventListener('click', () => {
   guessInput.focus();
   if (!guess) {
     message.textContent = `⛔ No number!`;
+
+    // When player wins
   } else if (guess === secretNumber) {
     message.textContent = `🎉 congratiolation you win!`;
     answer.textContent = secretNumber;
-    document.querySelector('body').style.backgroundColor = 'green';
+    document.querySelector('body').style.backgroundColor = '#60b347';
+    answer.style.width = '30rem';
     highScore.textContent = score.textContent;
   } else if (guess > secretNumber) {
     if (actualScore > 1) {
@@ -43,4 +46,15 @@ btnCheck.addEventListener('click', () => {
   console.log(numScore);
 });
 
-console.log(secretNumber);
+btnAgin.addEventListener('click', () => {
+  const initialScore = 20;
+  const initialNumber = '?';
+  document.querySelector('body').style.backgroundColor = '#222';
+  answer.style.width = '15rem';
+  score.textContent = initialScore;
+  message.textContent = 'Start guessing...';
+  answer.textContent = initialNumber;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+});
+
+alert(secretNumber);
